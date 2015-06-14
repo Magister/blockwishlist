@@ -78,7 +78,8 @@ class BlockWishList extends Module
 			!$this->registerHook('customerAccount') ||
 			!$this->registerHook('header') ||
 			!$this->registerHook('adminCustomers') ||
-			!$this->registerHook('displayProductListFunctionalButtons') ||
+			//!$this->registerHook('displayProductListFunctionalButtons') ||
+			!$this->registerHook('displayLeftColumnProduct') ||
 			!$this->registerHook('top'))
 			return false;
 		/* This hook is optional */
@@ -146,6 +147,11 @@ class BlockWishList extends Module
 
 		$this->smarty->assign('product', $params['product']);
 		return $this->display(__FILE__, 'blockwishlist_button.tpl');
+	}
+
+	public function hookDisplayLeftColumnProduct($params)
+	{
+		return $this->hookDisplayProductListFunctionalButtons($params);
 	}
 
 	public function hookTop($params)
