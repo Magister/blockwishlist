@@ -151,7 +151,18 @@ class BlockWishList extends Module
 
 	public function hookDisplayLeftColumnProduct($params)
 	{
-		return $this->hookDisplayProductListFunctionalButtons($params);
+		$cookie = $params['cookie'];
+
+		$this->smarty->assign(array(
+			'id_product' => (int)Tools::getValue('id_product'),
+		));
+
+		if (isset($cookie->id_customer))
+			$this->smarty->assign(array(
+				'wishlists' => WishList::getByIdCustomer($cookie->id_customer),
+			));
+
+		return ($this->display(__FILE__, 'blockwishlist-productleft.tpl'));
 	}
 
 	public function hookTop($params)
